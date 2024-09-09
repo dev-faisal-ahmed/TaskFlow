@@ -2,20 +2,12 @@
 
 import bcrypt from 'bcrypt';
 
-import { apolloClient, gql } from '@/lib/graphQlClient';
+import { apolloClient } from '@/lib/graphQlClient';
 import { TRegisterSchema } from './registerSchema';
 import { SALT } from '@/lib/config';
+import { REGISTER_USER } from '@/lib/query';
 
 // register user query
-const REGISTER_USER = gql`
-  mutation RegisterUser($name: String!, $email: String!, $password: String!) {
-    insert_user_one(
-      object: { name: $name, email: $email, password: $password }
-    ) {
-      email
-    }
-  }
-`;
 
 export const registerAction = async (formData: TRegisterSchema) => {
   const { name, email, password } = formData;

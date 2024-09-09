@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 
-import { gql, apolloClient } from '@/lib/graphQlClient';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import { apolloClient } from '@/lib/graphQlClient';
+import { GET_USER_BY_EMAIL } from '@/lib/query';
 
 interface ICredentials {
   email: string;
@@ -25,33 +26,40 @@ const authOption: NextAuthOptions = {
         try {
           // getting user info
           const { data } = await apolloClient.query({
-            query: gql`
-            query GetUserByEmail {
-              user_by_pk(email: ${email}) {
-                name
-                email
-                password
-              }
-            }
-          `,
+            query: GET_USER_BY_EMAIL,
+            variables: { email },
           });
 
-          // return null is no user found
-          if (!data.user_by_pk) throw new Error('User not found!');
+          const [user] = data.user;
+          if (!user) throw new Error('User not found');
 
-          const user = data.user_by_pk;
-          // comparing password
+          const { name } = user;
           const isPasswordMatch = await bcrypt.compare(password, user.password);
-          if (!isPasswordMatch) throw new Error('Password does not match');
 
-          return { id: email, email, name: user.name };
+          if (!isPasswordMatch) throw new Error('Wrong password');
+
+          return { id: email, email, name };
         } catch (error) {
-          console.error(error);
           return null;
         }
       },
     }),
   ],
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      if (url.startsWith('/')) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
+    },
+  },
+  pages: {
+    signIn: '/login',
+    error: '/login',
+  },
 };
 
-export default NextAuth(authOption);
+const handler = NextAuth(authOption);
+
+export { handler as GET, handler as POST };

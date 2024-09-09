@@ -2,14 +2,13 @@
 
 import * as customForm from '@/components/ui/form';
 
-import { Button } from '@/components/ui/button';
-import { useRegister } from '../(lib)/useRegister';
 import { TextInput } from '@/components/shared/form/TextInput';
+import { useLogin } from '../(lib)/useLogin';
 import { PasswordInput } from '@/components/shared/form/PasswordInput';
+import { Button } from '@/components/ui/button';
 
-export const RegisterForm = () => {
-  const { form, onRegister, isLoading } = useRegister();
-
+export const LoginFrom = () => {
+  const { form, onLogin } = useLogin();
   return (
     <section className='w-full max-w-[400px] rounded-md border bg-white p-6 shadow'>
       <div className='mb-6 text-center'>
@@ -19,13 +18,7 @@ export const RegisterForm = () => {
         </p>
       </div>
       <customForm.Form {...form}>
-        <form className='flex flex-col gap-3' onSubmit={onRegister}>
-          <TextInput
-            form={form}
-            name='name'
-            label='Name'
-            placeholder='@John Doe'
-          />
+        <form className='flex flex-col gap-3' onSubmit={onLogin}>
           <TextInput
             form={form}
             name='email'
@@ -37,16 +30,8 @@ export const RegisterForm = () => {
             name='password'
             label='Password'
             placeholder='@John Doe'
-            description='Minimum length is 4'
           />
-          <PasswordInput
-            form={form}
-            name='confirmPassword'
-            label='Confirm Password'
-            placeholder='@John Doe'
-            description='Write again the password'
-          />
-          <Button disabled={isLoading} type='submit' className='mt-2 w-full'>
+          <Button type='submit' className='mt-2 w-full'>
             Register
           </Button>
         </form>
