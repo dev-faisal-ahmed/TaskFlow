@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Task Flow',
 };
 
-export default function RootLayout({ children }: PropsWithChildren) {
+export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang='en'>
       <body className={`${font.className} min-h-screen bg-neutral-100`}>

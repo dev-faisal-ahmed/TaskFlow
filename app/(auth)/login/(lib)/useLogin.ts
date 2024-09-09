@@ -29,7 +29,7 @@ export const useLogin = () => {
 
       if (!result?.ok) return toast.error(result?.error, { id });
 
-      toast.success('Login successful');
+      toast.success('Login successful', { id });
       router.push('/');
     } finally {
       setIsLoading(false);
