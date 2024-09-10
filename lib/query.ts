@@ -22,7 +22,7 @@ export const GET_CATEGORY_BY_EMAIL = gql`
 
 export const GET_TASK_BY_EMAIL = gql`
   query GetTaskByEmail($userEmail: String!) {
-    task(where: { userEmail: { _eq: $userEmail } }) {
+    task(where: { userEmail: { _eq: $userEmail }, isDeleted: { _eq: false } }) {
       id
       title
       description
@@ -98,6 +98,14 @@ export const UPDATE_TASK = gql`
 export const UPDATE_TASK_STATUS = gql`
   mutation UpdateTask($id: uuid!, $status: status_enum!) {
     update_task_by_pk(pk_columns: { id: $id }, _set: { status: $status }) {
+      id
+    }
+  }
+`;
+
+export const DELETE_TASK = gql`
+  mutation SoftDelete($id: uuid!) {
+    update_task_by_pk(pk_columns: { id: $id }, _set: { isDeleted: true }) {
       id
     }
   }

@@ -5,10 +5,10 @@ import * as card from '@/components/ui/card';
 import { ITask } from '@/lib/types';
 import { useQuery } from '@apollo/client';
 import { UpdateTask } from './UpdateTask';
-import { TbTrashFilled } from 'react-icons/tb';
 import { GET_TASK_BY_EMAIL } from '@/lib/query';
 import { Loader } from '@/components/shared/Loader';
 import { UpdateTaskStatus } from './UpdateTaskStatus';
+import { DeleteTask } from './DeleteTask';
 
 interface IProps {
   userEmail: string;
@@ -36,9 +36,7 @@ export const AllTasks = ({ userEmail }: IProps) => {
                   userEmail={userEmail}
                   {...task}
                 />
-                <span className='cursor-pointer rounded-md bg-red-600 p-1 text-white'>
-                  <TbTrashFilled />
-                </span>
+                <DeleteTask taskId={task.id} />
               </div>
             </div>
           </card.CardHeader>
@@ -51,6 +49,7 @@ export const AllTasks = ({ userEmail }: IProps) => {
               <p className='text-sm font-semibold'>
                 {new Date(task.date).toString().slice(0, 10)}
               </p>
+
               <UpdateTaskStatus taskId={task.id} status={task.status} />
             </div>
           </card.CardContent>
