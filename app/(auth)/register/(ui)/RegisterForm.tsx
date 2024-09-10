@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useRegister } from '../(lib)/useRegister';
 import { TextInput } from '@/components/shared/form/TextInput';
 import { PasswordInput } from '@/components/shared/form/PasswordInput';
+import Link from 'next/link';
 
 export const RegisterForm = () => {
   const { form, onRegister, isLoading } = useRegister();
@@ -49,6 +50,12 @@ export const RegisterForm = () => {
           <Button disabled={isLoading} type='submit' className='mt-2 w-full'>
             Register
           </Button>
+          <p className='text-center text-xs'>
+            Already have an account?{' '}
+            <Link href={'/login'} className='text-blue-600 underline'>
+              Login
+            </Link>
+          </p>
         </form>
       </customForm.Form>
     </section>

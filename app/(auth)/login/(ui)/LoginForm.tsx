@@ -2,6 +2,7 @@
 
 import * as customForm from '@/components/ui/form';
 
+import Link from 'next/link';
 import { useLogin } from '../(lib)/useLogin';
 import { Button } from '@/components/ui/button';
 import { TextInput } from '@/components/shared/form/TextInput';
@@ -32,8 +33,14 @@ export const LoginFrom = () => {
             placeholder='@John Doe'
           />
           <Button type='submit' className='mt-2 w-full'>
-            Register
+            Login
           </Button>
+          <p className='text-center text-xs'>
+            New Here?{' '}
+            <Link href={'/register'} className='text-blue-600 underline'>
+              Register
+            </Link>
+          </p>
         </form>
       </customForm.Form>
     </section>

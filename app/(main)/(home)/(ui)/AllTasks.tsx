@@ -2,13 +2,13 @@
 
 import * as card from '@/components/ui/card';
 
-import { cn } from '@/lib/utils';
+import { ITask } from '@/lib/types';
 import { useQuery } from '@apollo/client';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { TbTrashFilled } from 'react-icons/tb';
 import { GET_TASK_BY_EMAIL } from '@/lib/query';
-import { ETaskStatus, ITask } from '@/lib/types';
 import { Loader } from '@/components/shared/Loader';
+import { UpdateTaskStatus } from './UpdateTaskStatus';
 
 interface IProps {
   userEmail: string;
@@ -49,17 +49,7 @@ export const AllTasks = ({ userEmail }: IProps) => {
               <p className='text-sm font-semibold'>
                 {new Date(task.date).toString().slice(0, 10)}
               </p>
-              <div className='flex items-center gap-3'>
-                <p
-                  className={cn(
-                    'cursor-pointer rounded-md px-2 py-1 text-sm text-white',
-                    task.status === ETaskStatus.COMPLETED && 'bg-lime-500',
-                    task.status === ETaskStatus.PENDING && 'bg-yellow-600',
-                  )}
-                >
-                  {task.status}
-                </p>
-              </div>
+              <UpdateTaskStatus taskId={task.id} status={task.status} />
             </div>
           </card.CardContent>
         </card.Card>

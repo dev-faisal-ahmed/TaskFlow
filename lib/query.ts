@@ -83,3 +83,33 @@ export const ADD_TASK = gql`
     }
   }
 `;
+
+export const UPDATE_TASK = gql`
+  mutation UpdateTask(
+    $id: uuid!
+    $title: String
+    $description: String
+    $categoryId: uuid
+    $status: String
+  ) {
+    update_task_by_pk(
+      pk_columns: { id: $id }
+      _set: {
+        title: $title
+        description: $description
+        categoryId: $categoryId
+        status: $status
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const UPDATE_TASK_STATUS = gql`
+  mutation UpdateTask($id: uuid!, $status: status_enum!) {
+    update_task_by_pk(pk_columns: { id: $id }, _set: { status: $status }) {
+      id
+    }
+  }
+`;
