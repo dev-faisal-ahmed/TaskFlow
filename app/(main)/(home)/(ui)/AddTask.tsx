@@ -46,7 +46,9 @@ export const AddTask = ({ userEmail }: IProps) => {
               placeholder='Select Category'
               userEmail={userEmail}
             />
-            <Button className='mt-3'>Add Task</Button>
+            <Button disabled={loading} className='mt-3'>
+              Add Task
+            </Button>
           </form>
         </customForm.Form>
       </dialog.DialogContent>

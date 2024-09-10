@@ -27,7 +27,9 @@ export const GET_TASK_BY_EMAIL = gql`
       title
       description
       status
+      date
       category {
+        id
         name
       }
     }
