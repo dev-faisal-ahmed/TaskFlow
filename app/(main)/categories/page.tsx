@@ -1,5 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { AddCategory } from './(ui)/AddCategory';
+import { AllCategories } from './(ui)/AllCategories';
 
 export const metadata = {
   title: 'Task Flow | Categories',
@@ -14,6 +15,7 @@ export default async function CategoriesPage() {
         <h3 className='text-lg font-semibold'>All Categories</h3>
         <AddCategory userEmail={user?.email as string} />
       </div>
+      <AllCategories userEmail={user?.email as string} />
     </main>
   );
 }

@@ -4,28 +4,29 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { categorySchema, TCategorySchema } from './categorySchema';
-import { GET_CATEGORY_BY_EMAIL, INSERT_CATEGORY } from '@/lib/query';
+import { GET_CATEGORY_BY_EMAIL, UPDATE_CATEGORY } from '@/lib/query';
 
-export const useAddCategory = (userEmail: string) => {
+export const useUpdateCategory = (categoryName: string, categoryId: string) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<TCategorySchema>({
     resolver: zodResolver(categorySchema),
-    defaultValues: { name: '' },
+    defaultValues: { name: categoryName },
   });
 
-  const [addCategory, { loading }] = useMutation(INSERT_CATEGORY, {
+  const [updateCategory, { loading }] = useMutation(UPDATE_CATEGORY, {
     refetchQueries: [GET_CATEGORY_BY_EMAIL],
   });
 
-  const onAddCategory = form.handleSubmit(async (formData) => {
+  const onUpdateCategory = form.handleSubmit(async (formData) => {
     const id = toast.loading('Adding Category...🔃');
+
     try {
-      await addCategory({
-        variables: { name: formData.name, userEmail },
+      await updateCategory({
+        variables: { name: formData.name, id: categoryId },
       });
 
-      toast.success('Category Added', { id });
+      toast.success('Category Updated', { id });
       form.reset();
       setIsOpen(false);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,5 +36,5 @@ export const useAddCategory = (userEmail: string) => {
     }
   });
 
-  return { form, onAddCategory, isOpen, setIsOpen, loading };
+  return { form, onUpdateCategory, isOpen, setIsOpen, loading };
 };
