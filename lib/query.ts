@@ -20,6 +20,20 @@ export const GET_CATEGORY_BY_EMAIL = gql`
   }
 `;
 
+export const GET_TASK_BY_EMAIL = gql`
+  query GetTaskByEmail($userEmail: String!) {
+    task(where: { userEmail: { _eq: $userEmail } }) {
+      id
+      title
+      description
+      status
+      category {
+        name
+      }
+    }
+  }
+`;
+
 // mutation
 export const REGISTER_USER = gql`
   mutation RegisterUser($name: String!, $email: String!, $password: String!) {
@@ -44,6 +58,26 @@ export const UPDATE_CATEGORY = gql`
     update_category_by_pk(pk_columns: { id: $id }, _set: { name: $name }) {
       id
       name
+    }
+  }
+`;
+
+export const ADD_TASK = gql`
+  mutation AddTask(
+    $title: String!
+    $description: String!
+    $categoryId: uuid!
+    $userEmail: String!
+  ) {
+    insert_task_one(
+      object: {
+        title: $title
+        description: $description
+        categoryId: $categoryId
+        userEmail: $userEmail
+      }
+    ) {
+      id
     }
   }
 `;
