@@ -2,19 +2,19 @@
 
 import * as customForm from '@/components/ui/form';
 
-import { TextInput } from '@/components/shared/form/TextInput';
 import { useLogin } from '../(lib)/useLogin';
-import { PasswordInput } from '@/components/shared/form/PasswordInput';
 import { Button } from '@/components/ui/button';
+import { TextInput } from '@/components/shared/form/TextInput';
+import { PasswordInput } from '@/components/shared/form/PasswordInput';
 
 export const LoginFrom = () => {
   const { form, onLogin } = useLogin();
   return (
     <section className='w-full max-w-[400px] rounded-md border bg-white p-6 shadow'>
       <div className='mb-6 text-center'>
-        <h1 className='text-xl font-semibold'>Welcome! 👋</h1>
+        <h1 className='text-xl font-semibold'>Welcome Again👋</h1>
         <p className='mt-2 text-sm text-muted-foreground'>
-          Provide your information to register
+          Provide your credentials to login
         </p>
       </div>
       <customForm.Form {...form}>

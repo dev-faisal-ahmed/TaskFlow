@@ -11,7 +11,6 @@ import { REGISTER_USER } from '@/lib/query';
 
 export const registerAction = async (formData: TRegisterSchema) => {
   const { name, email, password } = formData;
-  console.log(name, email, password);
 
   try {
     // encrypting password
