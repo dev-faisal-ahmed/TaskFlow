@@ -8,11 +8,13 @@ import { useQuery } from '@apollo/client';
 import { GET_CATEGORY_BY_EMAIL } from '@/lib/query';
 
 interface IProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   form: any;
   name: string;
   label: string;
   placeholder: string;
   userEmail: string;
+  defaultValue?: string;
 }
 
 export const SelectCategory = ({
@@ -21,6 +23,7 @@ export const SelectCategory = ({
   label,
   placeholder,
   userEmail,
+  defaultValue,
 }: IProps) => {
   const { data, loading } = useQuery(GET_CATEGORY_BY_EMAIL, {
     variables: { userEmail },
@@ -39,7 +42,7 @@ export const SelectCategory = ({
           </customForm.FormLabel>
           <select.Select
             onValueChange={field.onChange}
-            defaultValue={field.value}
+            defaultValue={field.value || defaultValue}
           >
             <customForm.FormControl>
               <select.SelectTrigger>

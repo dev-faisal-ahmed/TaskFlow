@@ -6,4 +6,10 @@ export const addTaskSchema = z.object({
   categoryId: z.string().min(1, { message: 'CategoryId is required' }),
 });
 
+export const updateTaskSchema = z.object({
+  title: z.string().min(1, { message: 'Title is required' }),
+  description: z.string().min(1, { message: 'Description is required' }),
+});
+
 export type TAddTaskSchema = z.infer<typeof addTaskSchema>;
+export type TUpdateTaskSchema = z.infer<typeof updateTaskSchema>;

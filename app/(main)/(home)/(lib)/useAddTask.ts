@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { addTaskSchema, TAddTaskSchema } from './taskSchema';
 import { ADD_TASK, GET_TASK_BY_EMAIL } from '@/lib/query';
+import { addTaskSchema, TAddTaskSchema } from './taskSchema';
 
 export const useAddTask = (userEmail: string) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +29,7 @@ export const useAddTask = (userEmail: string) => {
       toast.success('Task Added', { id });
       form.reset();
       setIsOpen(false);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log(error);
       toast.error(error.message || 'Something went wrong', { id });

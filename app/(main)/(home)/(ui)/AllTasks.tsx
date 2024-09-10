@@ -4,7 +4,7 @@ import * as card from '@/components/ui/card';
 
 import { ITask } from '@/lib/types';
 import { useQuery } from '@apollo/client';
-import { RiEdit2Fill } from 'react-icons/ri';
+import { UpdateTask } from './UpdateTask';
 import { TbTrashFilled } from 'react-icons/tb';
 import { GET_TASK_BY_EMAIL } from '@/lib/query';
 import { Loader } from '@/components/shared/Loader';
@@ -31,9 +31,11 @@ export const AllTasks = ({ userEmail }: IProps) => {
             <div className='flex items-center justify-between gap-6'>
               <card.CardDescription>{task.category.name}</card.CardDescription>
               <div className='flex items-center gap-3'>
-                <span className='cursor-pointer rounded-md bg-blue-600 p-1 text-white'>
-                  <RiEdit2Fill />
-                </span>
+                <UpdateTask
+                  categoryId={task.category.id}
+                  userEmail={userEmail}
+                  {...task}
+                />
                 <span className='cursor-pointer rounded-md bg-red-600 p-1 text-white'>
                   <TbTrashFilled />
                 </span>

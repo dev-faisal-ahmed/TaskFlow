@@ -85,21 +85,10 @@ export const ADD_TASK = gql`
 `;
 
 export const UPDATE_TASK = gql`
-  mutation UpdateTask(
-    $id: uuid!
-    $title: String
-    $description: String
-    $categoryId: uuid
-    $status: String
-  ) {
+  mutation UpdateTask($id: uuid!, $title: String, $description: String) {
     update_task_by_pk(
       pk_columns: { id: $id }
-      _set: {
-        title: $title
-        description: $description
-        categoryId: $categoryId
-        status: $status
-      }
+      _set: { title: $title, description: $description }
     ) {
       id
     }
