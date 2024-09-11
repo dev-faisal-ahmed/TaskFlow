@@ -49,7 +49,7 @@ export const UpdateTask = ({ id, title, description }: IProps) => {
               placeholder='@ Need to go to super market to find grocery'
             />
             <Button disabled={loading} className='mt-3'>
-              Add Task
+              Update Task
             </Button>
           </form>
         </customForm.Form>
