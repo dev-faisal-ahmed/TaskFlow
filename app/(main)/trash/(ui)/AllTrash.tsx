@@ -22,6 +22,9 @@ export const AllTrash = ({ userEmail }: IProps) => {
   if (loading) return <Loader className='mt-8' />;
   const tasks = data?.task as ITask[];
 
+  if (!tasks || !tasks.length)
+    return <p className='mt-8 text-center font-semibold'>No Task Found!</p>;
+
   return (
     <div className='mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
       {tasks?.map((task) => (

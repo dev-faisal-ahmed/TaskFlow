@@ -18,6 +18,9 @@ export const AllCategories = ({ userEmail }: IProps) => {
   if (loading) return <Loader className='mt-6' />;
   const categories = data?.category as ICategory[];
 
+  if (!categories || !categories.length)
+    return <p className='mt-8 text-center font-semibold'>No Category Found!</p>;
+
   return (
     <div className='mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
       {categories?.map(({ id, name }) => (
