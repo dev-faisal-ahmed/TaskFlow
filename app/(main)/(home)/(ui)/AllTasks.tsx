@@ -5,10 +5,10 @@ import * as card from '@/components/ui/card';
 import { ITask } from '@/lib/types';
 import { useQuery } from '@apollo/client';
 import { UpdateTask } from './UpdateTask';
+import { DeleteTask } from './DeleteTask';
 import { GET_TASK_BY_EMAIL } from '@/lib/query';
 import { Loader } from '@/components/shared/Loader';
 import { UpdateTaskStatus } from './UpdateTaskStatus';
-import { DeleteTask } from './DeleteTask';
 
 interface IProps {
   userEmail: string;

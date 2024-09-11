@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["HASURA", "hookform", "sonner", "timestamptz"]
+  "cSpell.words": [
+    "HASURA",
+    "hookform",
+    "openai",
+    "sonner",
+    "Streamable",
+    "timestamptz"
+  ]
 }

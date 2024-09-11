@@ -57,6 +57,11 @@ export const SelectCategory = ({
                   {category.name}
                 </select.SelectItem>
               ))}
+              {!categories?.length && (
+                <span className='p-1 text-sm'>
+                  No category found, Create one
+                </span>
+              )}
             </select.SelectContent>
           </select.Select>
           <customForm.FormMessage />

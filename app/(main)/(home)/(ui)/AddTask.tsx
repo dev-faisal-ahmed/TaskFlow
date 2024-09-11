@@ -5,8 +5,8 @@ import * as customForm from '@/components/ui/form';
 
 import { Button } from '@/components/ui/button';
 import { useAddTask } from '../(lib)/useAddTask';
+import { DescriptionInput } from './DescriptionInput';
 import { TextInput } from '@/components/shared/form/TextInput';
-import { CustomTextarea } from '@/components/shared/form/CustomTextArea';
 import { SelectCategory } from '@/components/shared/form/SelectCategory';
 
 interface IProps {
@@ -33,11 +33,12 @@ export const AddTask = ({ userEmail }: IProps) => {
               name='title'
               placeholder='@ Go to super market'
             />
-            <CustomTextarea
+            <DescriptionInput
               label='Description'
               form={form}
               name='description'
               placeholder='@ Need to go to super market to find grocery'
+              title={form.watch('title')}
             />
             <SelectCategory
               form={form}
