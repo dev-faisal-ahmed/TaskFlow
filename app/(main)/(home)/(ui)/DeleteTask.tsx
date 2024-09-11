@@ -2,11 +2,17 @@
 
 import * as dialog from '@/components/ui/dialog';
 
+import {
+  DELETE_TASK,
+  GET_DELETED_TASK_BY_EMAIL,
+  GET_TASK_BY_EMAIL,
+} from '@/lib/query';
+
 import { toast } from 'sonner';
 import { useMutation } from '@apollo/client';
 import { TbTrashFilled } from 'react-icons/tb';
 import { Button } from '@/components/ui/button';
-import { DELETE_TASK, GET_TASK_BY_EMAIL } from '@/lib/query';
+import { catchAsync } from '@/helpers/catchAsync';
 
 interface IProps {
   taskId: string;
@@ -14,18 +20,15 @@ interface IProps {
 
 export const DeleteTask = ({ taskId }: IProps) => {
   const [deleteTask, { loading }] = useMutation(DELETE_TASK, {
-    refetchQueries: [GET_TASK_BY_EMAIL],
+    refetchQueries: [GET_TASK_BY_EMAIL, GET_DELETED_TASK_BY_EMAIL],
   });
 
   const onDeleteTask = async () => {
     const id = toast.loading('Deleting Task');
-    try {
+    await catchAsync(async () => {
       await deleteTask({ variables: { id: taskId } });
       toast.success('Task Deleted', { id });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      toast.error(error.message || 'Something went wrong', { id });
-    }
+    }, id);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { getServerSession } from 'next-auth';
+import { getUser } from '@/helpers/getUser';
 import { AddCategory } from './(ui)/AddCategory';
 import { AllCategories } from './(ui)/AllCategories';
 
@@ -7,8 +7,7 @@ export const metadata = {
 };
 
 export default async function CategoriesPage() {
-  const userInfo = await getServerSession();
-  const { user } = userInfo!;
+  const { user } = await getUser();
   return (
     <>
       <div className='flex items-center justify-between gap-6'>

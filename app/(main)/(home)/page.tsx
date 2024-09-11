@@ -1,14 +1,13 @@
-import { getServerSession } from 'next-auth';
 import { AddTask } from './(ui)/AddTask';
 import { AllTasks } from './(ui)/AllTasks';
+import { getUser } from '@/helpers/getUser';
 
 export const metadata = {
   title: 'Task Flow | Home',
 };
 
 export default async function Home() {
-  const userInfo = await getServerSession();
-  const { user } = userInfo!;
+  const { user } = await getUser();
 
   return (
     <>
