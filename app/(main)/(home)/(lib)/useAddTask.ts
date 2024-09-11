@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ADD_TASK, GET_TASK_BY_EMAIL } from '@/lib/query';
 import { addTaskSchema, TAddTaskSchema } from './taskSchema';
+import { catchAsync } from '@/helpers/catchAsync';
 
 export const useAddTask = (userEmail: string) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,18 +23,15 @@ export const useAddTask = (userEmail: string) => {
     const { title, description, categoryId } = formData;
 
     const id = toast.loading('Adding Category...🔃');
-    try {
+
+    await catchAsync(async () => {
       await addTask({
         variables: { title, description, categoryId, userEmail },
       });
       toast.success('Task Added', { id });
       form.reset();
       setIsOpen(false);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log(error);
-      toast.error(error.message || 'Something went wrong', { id });
-    }
+    }, id);
   });
 
   return { form, onAddTask, isOpen, setIsOpen, loading };

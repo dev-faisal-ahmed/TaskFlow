@@ -1,10 +1,11 @@
 import { toast } from 'sonner';
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { catchAsync } from '@/helpers/catchAsync';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { TUpdateTaskSchema, updateTaskSchema } from './taskSchema';
 import { GET_TASK_BY_EMAIL, UPDATE_TASK } from '@/lib/query';
+import { TUpdateTaskSchema, updateTaskSchema } from './taskSchema';
 
 interface IUpdateTaskPayload {
   id: string;
@@ -37,17 +38,14 @@ export const useUpdateTask = ({
 
   const onUpdateTask = form.handleSubmit(async (formData) => {
     const id = toast.loading('Adding Category...🔃');
-    try {
+
+    await catchAsync(async () => {
       await updateTask({
         variables: { id: taskId, ...formData },
       });
       toast.success('Task Updated', { id });
       setIsOpen(false);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log(error);
-      toast.error(error.message || 'Something went wrong', { id });
-    }
+    }, id);
   });
 
   return { form, onUpdateTask, isOpen, setIsOpen, loading };

@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { categorySchema, TCategorySchema } from './categorySchema';
 import { GET_CATEGORY_BY_EMAIL, INSERT_CATEGORY } from '@/lib/query';
+import { catchAsync } from '@/helpers/catchAsync';
 
 export const useAddCategory = (userEmail: string) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,8 @@ export const useAddCategory = (userEmail: string) => {
 
   const onAddCategory = form.handleSubmit(async (formData) => {
     const id = toast.loading('Adding Category...🔃');
-    try {
+
+    await catchAsync(async () => {
       await addCategory({
         variables: { name: formData.name, userEmail },
       });
@@ -28,11 +30,7 @@ export const useAddCategory = (userEmail: string) => {
       toast.success('Category Added', { id });
       form.reset();
       setIsOpen(false);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log(error);
-      toast.error(error.message || 'Something went wrong', { id });
-    }
+    }, id);
   });
 
   return { form, onAddCategory, isOpen, setIsOpen, loading };
