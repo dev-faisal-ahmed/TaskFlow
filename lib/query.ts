@@ -36,22 +36,6 @@ export const GET_TASK_BY_EMAIL = gql`
   }
 `;
 
-export const GET_DELETED_TASK_BY_EMAIL = gql`
-  query GetTaskByEmail($userEmail: String!) {
-    task(where: { userEmail: { _eq: $userEmail }, isDeleted: { _eq: true } }) {
-      id
-      title
-      description
-      status
-      date
-      category {
-        id
-        name
-      }
-    }
-  }
-`;
-
 // mutation
 export const REGISTER_USER = gql`
   mutation RegisterUser($name: String!, $email: String!, $password: String!) {
@@ -143,6 +127,23 @@ export const PERMANENTLY_DELETE_TASK = gql`
   mutation PermanentlyDelete($id: uuid!) {
     delete_task_by_pk(id: $id) {
       id
+    }
+  }
+`;
+
+// subscription
+export const GET_DELETED_TASK_BY_EMAIL = gql`
+  subscription GetTaskByEmail($userEmail: String!) {
+    task(where: { userEmail: { _eq: $userEmail }, isDeleted: { _eq: true } }) {
+      id
+      title
+      description
+      status
+      date
+      category {
+        id
+        name
+      }
     }
   }
 `;

@@ -1,5 +1,6 @@
 'use server';
 
+import { serverAddress } from '@/data/serverAddress';
 import { HASURA_ADMIN_SECRET, HASURA_META_DATA_API } from '@/lib/config';
 
 export const scheduleDeleteAction = async (
@@ -16,7 +17,7 @@ export const scheduleDeleteAction = async (
       body: JSON.stringify({
         type: 'create_scheduled_event',
         args: {
-          webhook: 'https://2abe-103-172-15-244.ngrok-free.app/api/delete-task',
+          webhook: `${serverAddress}/api/delete-task`,
           schedule_at: scheduleAt,
           payload: {
             id: taskId,

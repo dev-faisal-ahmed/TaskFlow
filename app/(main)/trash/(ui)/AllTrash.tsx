@@ -3,7 +3,7 @@
 import * as card from '@/components/ui/card';
 
 import { ETaskStatus, ITask } from '@/lib/types';
-import { useQuery } from '@apollo/client';
+import { useSubscription } from '@apollo/client';
 import { Loader } from '@/components/shared/Loader';
 import { GET_DELETED_TASK_BY_EMAIL } from '@/lib/query';
 import { RestoreTask } from './RestoreTask';
@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export const AllTrash = ({ userEmail }: IProps) => {
-  const { data, loading } = useQuery(GET_DELETED_TASK_BY_EMAIL, {
+  const { data, loading } = useSubscription(GET_DELETED_TASK_BY_EMAIL, {
     variables: { userEmail },
   });
 
