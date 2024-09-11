@@ -119,9 +119,13 @@ export const UPDATE_TASK_STATUS = gql`
   }
 `;
 
+// this will soft delete the task and later it will delete the task from database
 export const DELETE_TASK = gql`
-  mutation SoftDelete($id: uuid!) {
-    update_task_by_pk(pk_columns: { id: $id }, _set: { isDeleted: true }) {
+  mutation SoftDelete($id: uuid!, $deletedAt: timestamptz!) {
+    update_task_by_pk(
+      pk_columns: { id: $id }
+      _set: { isDeleted: true, deletedAt: $deletedAt }
+    ) {
       id
     }
   }
@@ -130,6 +134,14 @@ export const DELETE_TASK = gql`
 export const RESTORE_TASK = gql`
   mutation RestoreTask($id: uuid!) {
     update_task_by_pk(pk_columns: { id: $id }, _set: { isDeleted: false }) {
+      id
+    }
+  }
+`;
+
+export const PERMANENTLY_DELETE_TASK = gql`
+  mutation PermanentlyDelete($id: uuid!) {
+    delete_task_by_pk(id: $id) {
       id
     }
   }

@@ -56,7 +56,7 @@ export const UpdateTaskStatus = ({ taskId, status }: IProps) => {
             {status}
           </span>
         </toolTip.TooltipTrigger>
-        <toolTip.TooltipContent>
+        <toolTip.TooltipContent sideOffset={12}>
           <p>
             {status === ETaskStatus.PENDING
               ? 'Mask as completed'

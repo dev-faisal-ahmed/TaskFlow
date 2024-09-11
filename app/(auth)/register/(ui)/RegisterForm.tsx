@@ -2,11 +2,11 @@
 
 import * as customForm from '@/components/ui/form';
 
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useRegister } from '../(lib)/useRegister';
 import { TextInput } from '@/components/shared/form/TextInput';
 import { PasswordInput } from '@/components/shared/form/PasswordInput';
-import Link from 'next/link';
 
 export const RegisterForm = () => {
   const { form, onRegister, isLoading } = useRegister();

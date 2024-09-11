@@ -22,7 +22,7 @@ export const Sidebar = () => {
             key={url}
             href={url}
             className={cn(
-              'flex items-center gap-2 rounded-md px-4 py-2 hover:bg-neutral-400',
+              'flex items-center gap-2 rounded-md px-4 py-2 hover:bg-neutral-300 hover:text-black',
               pathname === url && 'bg-primary text-white',
             )}
           >

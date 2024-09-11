@@ -3,9 +3,8 @@
 import * as dialog from '@/components/ui/dialog';
 
 import {
-  DELETE_TASK,
   GET_DELETED_TASK_BY_EMAIL,
-  GET_TASK_BY_EMAIL,
+  PERMANENTLY_DELETE_TASK,
 } from '@/lib/query';
 
 import { toast } from 'sonner';
@@ -13,38 +12,21 @@ import { useMutation } from '@apollo/client';
 import { TbTrashFilled } from 'react-icons/tb';
 import { Button } from '@/components/ui/button';
 import { catchAsync } from '@/helpers/catchAsync';
-import { getAfterTime } from '@/helpers/dateHelper';
-import { scheduleDeleteAction } from '../(lib)/scheduleDeleteAction';
 
 interface IProps {
   taskId: string;
 }
 
-export const DeleteTask = ({ taskId }: IProps) => {
-  const [deleteTask, { loading }] = useMutation(DELETE_TASK, {
-    refetchQueries: [GET_TASK_BY_EMAIL, GET_DELETED_TASK_BY_EMAIL],
+export const PermanentlyDeleteTask = ({ taskId }: IProps) => {
+  const [deleteTask, { loading }] = useMutation(PERMANENTLY_DELETE_TASK, {
+    refetchQueries: [GET_DELETED_TASK_BY_EMAIL],
   });
 
   const onDeleteTask = async () => {
     const id = toast.loading('Deleting Task');
-    const date = new Date();
-
-    // for soft delete
     await catchAsync(async () => {
-      await deleteTask({
-        variables: {
-          id: taskId,
-          deletedAt: date,
-        },
-      });
+      await deleteTask({ variables: { id: taskId } });
       toast.success('Task Deleted', { id });
-      // for schedule deletion
-      const response = await scheduleDeleteAction(
-        taskId,
-        getAfterTime(date, 1),
-      );
-      if (response?.success) toast.success(response.success, { id });
-      else throw new Error(response?.error);
     }, id);
   };
 
@@ -59,7 +41,7 @@ export const DeleteTask = ({ taskId }: IProps) => {
         <dialog.DialogHeader>
           <dialog.DialogTitle>Are you sure?</dialog.DialogTitle>
           <dialog.DialogDescription>
-            Once you delete, the task can be found in trash.
+            Once you delete, the task can never be found.
           </dialog.DialogDescription>
         </dialog.DialogHeader>
         <div className='flex items-center justify-end gap-4'>
@@ -71,7 +53,7 @@ export const DeleteTask = ({ taskId }: IProps) => {
             disabled={loading}
             variant={'destructive'}
           >
-            Proceed
+            Delete Permanently
           </Button>
         </div>
       </dialog.DialogContent>
