@@ -9,12 +9,8 @@ import { DescriptionInput } from './shared/DescriptionInput';
 import { TextInput } from '@/components/shared/form/TextInput';
 import { SelectCategory } from '@/components/shared/form/SelectCategory';
 
-interface IProps {
-  userEmail: string;
-}
-
-export const AddTask = ({ userEmail }: IProps) => {
-  const { form, isOpen, setIsOpen, loading, onAddTask } = useAddTask(userEmail);
+export const AddTask = () => {
+  const { form, isOpen, setIsOpen, loading, onAddTask } = useAddTask();
 
   return (
     <dialog.Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -47,7 +43,6 @@ export const AddTask = ({ userEmail }: IProps) => {
               label='Category'
               name='categoryId'
               placeholder='Select Category'
-              userEmail={userEmail}
             />
             <Button disabled={loading} className='mt-3'>
               Add Task

@@ -7,13 +7,8 @@ import { Button } from '@/components/ui/button';
 import { useAddCategory } from '../(lib)/useAddCategory';
 import { TextInput } from '@/components/shared/form/TextInput';
 
-interface IProps {
-  userEmail: string;
-}
-
-export const AddCategory = ({ userEmail }: IProps) => {
-  const { form, onAddCategory, isOpen, setIsOpen, loading } =
-    useAddCategory(userEmail);
+export const AddCategory = () => {
+  const { form, onAddCategory, isOpen, setIsOpen, loading } = useAddCategory();
 
   return (
     <dialog.Dialog open={isOpen} onOpenChange={setIsOpen}>

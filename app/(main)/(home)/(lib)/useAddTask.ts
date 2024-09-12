@@ -1,14 +1,16 @@
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
 import { useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { catchAsync } from '@/helpers/catchAsync';
 import { ADD_TASK, GET_TASK_BY_EMAIL } from '@/lib/query';
 import { addTaskSchema, TAddTaskSchema } from './taskSchema';
-import { catchAsync } from '@/helpers/catchAsync';
 
-export const useAddTask = (userEmail: string) => {
+export const useAddTask = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data } = useSession();
 
   const form = useForm<TAddTaskSchema>({
     resolver: zodResolver(addTaskSchema),
@@ -26,7 +28,12 @@ export const useAddTask = (userEmail: string) => {
 
     await catchAsync(async () => {
       await addTask({
-        variables: { title, description, categoryId, userEmail },
+        variables: {
+          title,
+          description,
+          categoryId,
+          userEmail: data?.user?.email as string,
+        },
       });
       toast.success('Task Added', { id });
       form.reset();

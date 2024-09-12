@@ -14,7 +14,6 @@ interface IProps {
   title: string;
   description: string;
   categoryId: string;
-  userEmail: string;
 }
 
 export const UpdateTask = ({ id, title, description }: IProps) => {

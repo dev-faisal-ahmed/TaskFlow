@@ -6,6 +6,7 @@ import * as customForm from '@/components/ui/form';
 import { ICategory } from '@/lib/types';
 import { useQuery } from '@apollo/client';
 import { GET_CATEGORY_BY_EMAIL } from '@/lib/query';
+import { useSession } from 'next-auth/react';
 
 interface IProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,7 +14,6 @@ interface IProps {
   name: string;
   label: string;
   placeholder: string;
-  userEmail: string;
   defaultValue?: string;
 }
 
@@ -22,11 +22,11 @@ export const SelectCategory = ({
   name,
   label,
   placeholder,
-  userEmail,
   defaultValue,
 }: IProps) => {
+  const { data: userInfo } = useSession();
   const { data, loading } = useQuery(GET_CATEGORY_BY_EMAIL, {
-    variables: { userEmail },
+    variables: { userEmail: userInfo?.user?.email },
   });
 
   const categories = data?.category as ICategory[];

@@ -2,21 +2,19 @@
 
 import * as card from '@/components/ui/card';
 
+import { cn } from '@/lib/utils';
+import { RestoreTask } from './RestoreTask';
+import { useSession } from 'next-auth/react';
 import { ETaskStatus, ITask } from '@/lib/types';
 import { useSubscription } from '@apollo/client';
 import { Loader } from '@/components/shared/Loader';
 import { GET_DELETED_TASK_BY_EMAIL } from '@/lib/query';
-import { RestoreTask } from './RestoreTask';
-import { cn } from '@/lib/utils';
 import { PermanentlyDeleteTask } from './PermanentlyDelete';
 
-interface IProps {
-  userEmail: string;
-}
-
-export const AllTrash = ({ userEmail }: IProps) => {
+export const AllTrash = () => {
+  const { data: userInfo } = useSession();
   const { data, loading } = useSubscription(GET_DELETED_TASK_BY_EMAIL, {
-    variables: { userEmail },
+    variables: { userEmail: userInfo?.user?.email },
   });
 
   if (loading) return <Loader className='mt-8' />;

@@ -6,8 +6,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { categorySchema, TCategorySchema } from './categorySchema';
 import { GET_CATEGORY_BY_EMAIL, INSERT_CATEGORY } from '@/lib/query';
 import { catchAsync } from '@/helpers/catchAsync';
+import { useSession } from 'next-auth/react';
 
-export const useAddCategory = (userEmail: string) => {
+export const useAddCategory = () => {
+  const { data } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<TCategorySchema>({
@@ -24,7 +26,7 @@ export const useAddCategory = (userEmail: string) => {
 
     await catchAsync(async () => {
       await addCategory({
-        variables: { name: formData.name, userEmail },
+        variables: { name: formData.name, userEmail: data?.user?.email },
       });
 
       toast.success('Category Added', { id });

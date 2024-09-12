@@ -2,17 +2,15 @@
 
 import { ICategory } from '@/lib/types';
 import { useQuery } from '@apollo/client';
+import { useSession } from 'next-auth/react';
 import { UpdateCategory } from './UpdateCategory';
 import { Loader } from '@/components/shared/Loader';
 import { GET_CATEGORY_BY_EMAIL } from '@/lib/query';
 
-interface IProps {
-  userEmail: string;
-}
-
-export const AllCategories = ({ userEmail }: IProps) => {
+export const AllCategories = () => {
+  const { data: userInfo } = useSession();
   const { data, loading } = useQuery(GET_CATEGORY_BY_EMAIL, {
-    variables: { userEmail },
+    variables: { userEmail: userInfo?.user?.email },
   });
 
   if (loading) return <Loader className='mt-6' />;

@@ -7,17 +7,16 @@ import { ITask } from '@/lib/types';
 import { useQuery } from '@apollo/client';
 import { UpdateTask } from './UpdateTask';
 import { DeleteTask } from './DeleteTask';
+import { useSession } from 'next-auth/react';
 import { GET_TASK_BY_EMAIL } from '@/lib/query';
 import { Loader } from '@/components/shared/Loader';
 import { UpdateTaskStatus } from './UpdateTaskStatus';
 
-interface IProps {
-  userEmail: string;
-}
+export const AllTasks = () => {
+  const { data: userInfo } = useSession();
 
-export const AllTasks = ({ userEmail }: IProps) => {
   const { data, loading } = useQuery(GET_TASK_BY_EMAIL, {
-    variables: { userEmail },
+    variables: { userEmail: userInfo?.user?.email },
   });
 
   // on filter update
@@ -37,11 +36,7 @@ export const AllTasks = ({ userEmail }: IProps) => {
             <div className='flex items-center justify-between gap-6'>
               <card.CardDescription>{task.category.name}</card.CardDescription>
               <div className='flex items-center gap-3'>
-                <UpdateTask
-                  categoryId={task.category.id}
-                  userEmail={userEmail}
-                  {...task}
-                />
+                <UpdateTask categoryId={task.category.id} {...task} />
                 <DeleteTask taskId={task.id} />
               </div>
             </div>
