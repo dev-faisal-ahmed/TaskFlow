@@ -27,8 +27,6 @@ export const DescriptionInput = ({
 }: IProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(title);
-
   const generateDescription = async () => {
     setIsLoading(true);
     const response = await getAIDescription(title);

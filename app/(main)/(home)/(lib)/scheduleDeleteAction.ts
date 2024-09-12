@@ -26,8 +26,7 @@ export const scheduleDeleteAction = async (
       }),
     });
 
-    const data = await response.json();
-    console.log(data);
+    await response.json();
     if (response.ok) return { success: 'Task is scheduled to be deleted' };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {

@@ -6,7 +6,8 @@ import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { ETaskStatus } from '@/lib/types';
 import { useMutation } from '@apollo/client';
-import { GET_TASK_BY_EMAIL, UPDATE_TASK_STATUS } from '@/lib/query';
+import { catchAsync } from '@/helpers/catchAsync';
+import { GET_TASKS, UPDATE_TASK_STATUS } from '@/lib/query';
 
 interface IProps {
   taskId: string;
@@ -15,7 +16,7 @@ interface IProps {
 
 export const UpdateTaskStatus = ({ taskId, status }: IProps) => {
   const [updateTask, { loading }] = useMutation(UPDATE_TASK_STATUS, {
-    refetchQueries: [GET_TASK_BY_EMAIL],
+    refetchQueries: [GET_TASKS],
   });
 
   const onUpdateTaskStatus = async () => {
@@ -26,19 +27,13 @@ export const UpdateTaskStatus = ({ taskId, status }: IProps) => {
 
     const id = toast.loading('Updating Status');
 
-    console.log({ taskId, status: ETaskStatus.COMPLETED });
-
-    try {
+    await catchAsync(async () => {
       await updateTask({
         variables: { id: taskId, status: ETaskStatus.COMPLETED },
       });
 
       toast.success('Updated task status', { id });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log(error);
-      toast.error(error.message || 'Something went wrong', { id });
-    }
+    }, id);
   };
 
   return (

@@ -13,7 +13,6 @@ export async function getAIDescription(title: string) {
     const result = await model.generateContent([message]);
     return result.response.text();
   } catch (error) {
-    console.log(error);
     return '';
   }
 }

@@ -15,7 +15,7 @@ export const MobileNavbar = () => {
           key={url}
           href={url}
           className={cn(
-            'flex w-[80px] flex-col items-center gap-2 rounded-md border border-primary p-1',
+            'flex w-[80px] flex-col items-center gap-1 rounded-md border border-primary px-2 py-3',
             pathname === url && 'bg-primary text-white',
           )}
         >

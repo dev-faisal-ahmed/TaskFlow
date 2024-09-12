@@ -2,12 +2,6 @@
 
 import * as dialog from '@/components/ui/dialog';
 
-import {
-  DELETE_TASK,
-  GET_DELETED_TASK_BY_EMAIL,
-  GET_TASK_BY_EMAIL,
-} from '@/lib/query';
-
 import { toast } from 'sonner';
 import { useMutation } from '@apollo/client';
 import { TbTrashFilled } from 'react-icons/tb';
@@ -15,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { catchAsync } from '@/helpers/catchAsync';
 import { getAfterTime } from '@/helpers/dateHelper';
 import { scheduleDeleteAction } from '../../(lib)/scheduleDeleteAction';
+import { DELETE_TASK, GET_DELETED_TASK_BY_EMAIL, GET_TASKS } from '@/lib/query';
 
 interface IProps {
   taskId: string;
@@ -22,7 +17,7 @@ interface IProps {
 
 export const DeleteTask = ({ taskId }: IProps) => {
   const [deleteTask, { loading }] = useMutation(DELETE_TASK, {
-    refetchQueries: [GET_TASK_BY_EMAIL, GET_DELETED_TASK_BY_EMAIL],
+    refetchQueries: [GET_TASKS, GET_DELETED_TASK_BY_EMAIL],
   });
 
   const onDeleteTask = async () => {

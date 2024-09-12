@@ -2,7 +2,7 @@
 
 import {
   GET_DELETED_TASK_BY_EMAIL,
-  GET_TASK_BY_EMAIL,
+  GET_TASKS,
   RESTORE_TASK,
 } from '@/lib/query';
 
@@ -17,7 +17,7 @@ interface IProps {
 
 export const RestoreTask = ({ taskId }: IProps) => {
   const [restoreTask] = useMutation(RESTORE_TASK, {
-    refetchQueries: [GET_TASK_BY_EMAIL, GET_DELETED_TASK_BY_EMAIL],
+    refetchQueries: [GET_TASKS, GET_DELETED_TASK_BY_EMAIL],
   });
 
   const onRestore = async () => {

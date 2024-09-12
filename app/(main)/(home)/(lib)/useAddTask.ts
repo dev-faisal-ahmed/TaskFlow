@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
 import { useMutation } from '@apollo/client';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { ADD_TASK, GET_TASKS } from '@/lib/query';
 import { catchAsync } from '@/helpers/catchAsync';
-import { ADD_TASK, GET_TASK_BY_EMAIL } from '@/lib/query';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { addTaskSchema, TAddTaskSchema } from './taskSchema';
 
 export const useAddTask = () => {
@@ -18,7 +18,7 @@ export const useAddTask = () => {
   });
 
   const [addTask, { loading }] = useMutation(ADD_TASK, {
-    refetchQueries: [GET_TASK_BY_EMAIL],
+    refetchQueries: [GET_TASKS],
   });
 
   const onAddTask = form.handleSubmit(async (formData) => {

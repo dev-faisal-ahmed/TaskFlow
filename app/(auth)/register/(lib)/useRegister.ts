@@ -21,7 +21,6 @@ export const useRegister = () => {
       setIsLoading(true);
       const response = await registerAction(formData);
       const { success, error } = response;
-      console.log(error);
       if (error) return toast.error(error, { id });
 
       toast.success(success, { id });

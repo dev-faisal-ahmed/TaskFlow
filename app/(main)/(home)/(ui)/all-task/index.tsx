@@ -4,20 +4,31 @@
 import * as card from '@/components/ui/card';
 
 import { ITask } from '@/lib/types';
+import { GET_TASKS } from '@/lib/query';
 import { useQuery } from '@apollo/client';
 import { UpdateTask } from './UpdateTask';
 import { DeleteTask } from './DeleteTask';
 import { useSession } from 'next-auth/react';
-import { GET_TASK_BY_EMAIL } from '@/lib/query';
 import { Loader } from '@/components/shared/Loader';
 import { UpdateTaskStatus } from './UpdateTaskStatus';
+import { useFilterContext } from '@/context/useFilterContext';
+import { generateTaskFilterQuery } from '@/helpers/queryHelper';
 
 export const AllTasks = () => {
   const { data: userInfo } = useSession();
+  const { filters } = useFilterContext();
 
-  const { data, loading } = useQuery(GET_TASK_BY_EMAIL, {
-    variables: { userEmail: userInfo?.user?.email },
+  const { data, loading, error } = useQuery(GET_TASKS, {
+    variables: {
+      whereQuery: generateTaskFilterQuery(
+        filters,
+        userInfo?.user?.email as string,
+      ),
+      sortOrder: filters.sortOrder,
+    },
   });
+  console.log({ sortOrder: filters.sortOrder });
+  console.log({ error });
 
   // on filter update
 
@@ -32,7 +43,9 @@ export const AllTasks = () => {
       {tasks.map((task) => (
         <card.Card className='grid h-full grid-rows-[auto_1fr]' key={task.id}>
           <card.CardHeader>
-            <card.CardTitle>{task.title}</card.CardTitle>
+            <card.CardTitle className='line-clamp-1'>
+              {task.title}
+            </card.CardTitle>
             <div className='flex items-center justify-between gap-6'>
               <card.CardDescription>{task.category.name}</card.CardDescription>
               <div className='flex items-center gap-3'>

@@ -1,40 +1,8 @@
+export * from './category';
+export * from './task';
+export * from './user';
+
 import { gql } from '@apollo/client';
-
-// query
-export const GET_USER_BY_EMAIL = gql`
-  query GetUserByEmail($email: String!) {
-    user(where: { email: { _eq: $email } }) {
-      email
-      name
-      password
-    }
-  }
-`;
-
-export const GET_CATEGORY_BY_EMAIL = gql`
-  query GetCategoryByEmail($userEmail: String!) {
-    category(where: { userEmail: { _eq: $userEmail } }) {
-      id
-      name
-    }
-  }
-`;
-
-export const GET_TASK_BY_EMAIL = gql`
-  query GetTaskByEmail($userEmail: String!) {
-    task(where: { userEmail: { _eq: $userEmail }, isDeleted: { _eq: false } }) {
-      id
-      title
-      description
-      status
-      date
-      category {
-        id
-        name
-      }
-    }
-  }
-`;
 
 // mutation
 export const REGISTER_USER = gql`

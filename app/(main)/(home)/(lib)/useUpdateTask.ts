@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { catchAsync } from '@/helpers/catchAsync';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { GET_TASK_BY_EMAIL, UPDATE_TASK } from '@/lib/query';
+import { GET_TASKS, UPDATE_TASK } from '@/lib/query';
 import { TUpdateTaskSchema, updateTaskSchema } from './taskSchema';
 
 interface IUpdateTaskPayload {
@@ -26,7 +26,7 @@ export const useUpdateTask = ({
   });
 
   const [updateTask, { loading }] = useMutation(UPDATE_TASK, {
-    refetchQueries: [GET_TASK_BY_EMAIL],
+    refetchQueries: [GET_TASKS],
   });
 
   useEffect(() => {

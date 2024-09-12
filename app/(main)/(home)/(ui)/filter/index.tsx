@@ -25,8 +25,6 @@ export const FilterSheet = () => {
 
   const { onUpdateFilter, filters, resetFilter } = useFilterContext()!;
 
-  console.log(filters);
-
   return (
     <sheet.Sheet>
       <sheet.SheetTrigger>
@@ -50,15 +48,6 @@ export const FilterSheet = () => {
           </div>
 
           <SelectFilter
-            filterKey='sortOrder'
-            label='Sort By Date'
-            placeholder='Select Order'
-          >
-            <select.SelectItem value='asc'>Ascending Order</select.SelectItem>
-            <select.SelectItem value='desc'>Descending Order</select.SelectItem>
-          </SelectFilter>
-
-          <SelectFilter
             filterKey='categoryId'
             label='Category'
             placeholder='Select Any Category'
@@ -79,12 +68,21 @@ export const FilterSheet = () => {
             label='Task Status'
             placeholder='Select Any Status'
           >
-            <select.SelectItem value={'COMPLETED'}>
+            <select.SelectItem value={ETaskStatus.COMPLETED}>
               {ETaskStatus.COMPLETED}
             </select.SelectItem>
-            <select.SelectItem value={'PENDING'}>
+            <select.SelectItem value={ETaskStatus.PENDING}>
               {ETaskStatus.PENDING}
             </select.SelectItem>
+          </SelectFilter>
+
+          <SelectFilter
+            filterKey='sortOrder'
+            label='Sort By Date'
+            placeholder='Select Order'
+          >
+            <select.SelectItem value='asc'>Ascending Order</select.SelectItem>
+            <select.SelectItem value='desc'>Descending Order</select.SelectItem>
           </SelectFilter>
         </div>
 
