@@ -1,11 +1,11 @@
 'use client';
 
+import { useState } from 'react';
+import { FaBrain } from 'react-icons/fa';
 import * as customForm from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { FaBrain } from 'react-icons/fa';
-import { getAIDescription } from '../(lib)/getAIDescription';
-import { useState } from 'react';
 import { Loader } from '@/components/shared/Loader';
+import { getAIDescription } from '../../(lib)/getAIDescription';
 
 interface IProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

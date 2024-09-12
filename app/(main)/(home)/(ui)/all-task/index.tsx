@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import * as card from '@/components/ui/card';
@@ -18,6 +19,8 @@ export const AllTasks = ({ userEmail }: IProps) => {
   const { data, loading } = useQuery(GET_TASK_BY_EMAIL, {
     variables: { userEmail },
   });
+
+  // on filter update
 
   if (loading) return <Loader className='mt-8' />;
   const tasks = data?.task as ITask[];

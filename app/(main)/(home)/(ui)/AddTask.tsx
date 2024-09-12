@@ -5,7 +5,7 @@ import * as customForm from '@/components/ui/form';
 
 import { Button } from '@/components/ui/button';
 import { useAddTask } from '../(lib)/useAddTask';
-import { DescriptionInput } from './DescriptionInput';
+import { DescriptionInput } from './shared/DescriptionInput';
 import { TextInput } from '@/components/shared/form/TextInput';
 import { SelectCategory } from '@/components/shared/form/SelectCategory';
 
@@ -22,7 +22,9 @@ export const AddTask = ({ userEmail }: IProps) => {
         <Button>Add Task</Button>
       </dialog.DialogTrigger>
       <dialog.DialogContent>
-        <dialog.DialogHeader>Add New Task</dialog.DialogHeader>
+        <dialog.DialogHeader>
+          <dialog.DialogTitle>Add New Task</dialog.DialogTitle>
+        </dialog.DialogHeader>
         <dialog.DialogDescription>Input task details</dialog.DialogDescription>
 
         <customForm.Form {...form}>

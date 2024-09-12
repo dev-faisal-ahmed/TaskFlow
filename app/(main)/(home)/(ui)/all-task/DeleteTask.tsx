@@ -14,7 +14,7 @@ import { TbTrashFilled } from 'react-icons/tb';
 import { Button } from '@/components/ui/button';
 import { catchAsync } from '@/helpers/catchAsync';
 import { getAfterTime } from '@/helpers/dateHelper';
-import { scheduleDeleteAction } from '../(lib)/scheduleDeleteAction';
+import { scheduleDeleteAction } from '../../(lib)/scheduleDeleteAction';
 
 interface IProps {
   taskId: string;
