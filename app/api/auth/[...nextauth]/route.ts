@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import NextAuth, { NextAuthOptions } from 'next-auth';
 
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import { apolloClient } from '@/lib/graphQlClient';
 import { GET_USER_BY_EMAIL } from '@/lib/query';
 
@@ -39,7 +39,9 @@ const authOption: NextAuthOptions = {
           if (!isPasswordMatch) throw new Error('Wrong password');
 
           return { id: email, email, name };
-        } catch (error) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+          throw new Error(error.message);
           return null;
         }
       },

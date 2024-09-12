@@ -31,6 +31,8 @@ export const useLogin = () => {
 
       toast.success('Login successful', { id });
       router.push('/');
+    } catch (error) {
+      console.log({ error });
     } finally {
       setIsLoading(false);
     }

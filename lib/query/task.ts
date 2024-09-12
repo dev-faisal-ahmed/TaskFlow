@@ -2,8 +2,24 @@ import { gql } from '@apollo/client';
 
 // query
 export const GET_TASKS = gql`
-  query GetTasks($whereQuery: task_bool_exp, $sortOrder: order_by!) {
-    task(where: $whereQuery, order_by: { date: $sortOrder }) {
+  query GetTasks(
+    $whereQuery: task_bool_exp
+    $sortOrder: order_by!
+    $offset: Int!
+    $limit: Int!
+  ) {
+    task_aggregate(where: $whereQuery) {
+      aggregate {
+        count
+      }
+    }
+
+    task(
+      where: $whereQuery
+      order_by: { date: $sortOrder }
+      offset: $offset
+      limit: $limit
+    ) {
       id
       title
       description
