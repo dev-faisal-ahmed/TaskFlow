@@ -5,9 +5,9 @@ import * as customForm from '@/components/ui/form';
 
 import { RiEdit2Fill } from 'react-icons/ri';
 import { Button } from '@/components/ui/button';
+import { DescriptionInput } from './DescriptionInput';
 import { useUpdateTask } from '../../(lib)/useUpdateTask';
 import { TextInput } from '@/components/shared/form/TextInput';
-import { CustomTextarea } from '@/components/shared/form/CustomTextArea';
 
 interface IProps {
   id: string;
@@ -41,11 +41,12 @@ export const UpdateTask = ({ id, title, description }: IProps) => {
               name='title'
               placeholder='@ Go to super market'
             />
-            <CustomTextarea
+            <DescriptionInput
               label='Description'
               form={form}
               name='description'
               placeholder='@ Need to go to super market to find grocery'
+              title={form.watch('title')}
             />
             <Button disabled={loading} className='mt-3'>
               Update Task

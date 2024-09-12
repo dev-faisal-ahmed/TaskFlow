@@ -8,12 +8,12 @@ import { useSession } from 'next-auth/react';
 import { ETaskStatus, ITask } from '@/lib/types';
 import { useSubscription } from '@apollo/client';
 import { Loader } from '@/components/shared/Loader';
-import { GET_DELETED_TASK_BY_EMAIL } from '@/lib/query';
+import { GET_DELETED_TASKS } from '@/lib/query';
 import { PermanentlyDeleteTask } from './PermanentlyDelete';
 
 export const AllTrash = () => {
   const { data: userInfo } = useSession();
-  const { data, loading } = useSubscription(GET_DELETED_TASK_BY_EMAIL, {
+  const { data, loading } = useSubscription(GET_DELETED_TASKS, {
     variables: { userEmail: userInfo?.user?.email },
   });
 

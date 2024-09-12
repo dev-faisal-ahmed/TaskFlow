@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  GET_DELETED_TASK_BY_EMAIL,
-  GET_TASKS,
-  RESTORE_TASK,
-} from '@/lib/query';
+import { GET_DELETED_TASKS, GET_TASKS, RESTORE_TASK } from '@/lib/query';
 
 import { toast } from 'sonner';
 import { TbRestore } from 'react-icons/tb';
@@ -17,7 +13,7 @@ interface IProps {
 
 export const RestoreTask = ({ taskId }: IProps) => {
   const [restoreTask] = useMutation(RESTORE_TASK, {
-    refetchQueries: [GET_TASKS, GET_DELETED_TASK_BY_EMAIL],
+    refetchQueries: [GET_TASKS, GET_DELETED_TASKS],
   });
 
   const onRestore = async () => {

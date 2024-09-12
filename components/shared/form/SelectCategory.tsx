@@ -5,7 +5,7 @@ import * as customForm from '@/components/ui/form';
 
 import { ICategory } from '@/lib/types';
 import { useQuery } from '@apollo/client';
-import { GET_CATEGORY_BY_EMAIL } from '@/lib/query';
+import { GET_CATEGORY } from '@/lib/query';
 import { useSession } from 'next-auth/react';
 
 interface IProps {
@@ -25,7 +25,7 @@ export const SelectCategory = ({
   defaultValue,
 }: IProps) => {
   const { data: userInfo } = useSession();
-  const { data, loading } = useQuery(GET_CATEGORY_BY_EMAIL, {
+  const { data, loading } = useQuery(GET_CATEGORY, {
     variables: { userEmail: userInfo?.user?.email },
   });
 

@@ -5,13 +5,15 @@ import { useQuery } from '@apollo/client';
 import { useSession } from 'next-auth/react';
 import { UpdateCategory } from './UpdateCategory';
 import { Loader } from '@/components/shared/Loader';
-import { GET_CATEGORY_BY_EMAIL } from '@/lib/query';
+import { GET_CATEGORY } from '@/lib/query';
 
 export const AllCategories = () => {
   const { data: userInfo } = useSession();
-  const { data, loading } = useQuery(GET_CATEGORY_BY_EMAIL, {
+  const { data, loading, error } = useQuery(GET_CATEGORY, {
     variables: { userEmail: userInfo?.user?.email },
   });
+
+  console.log({ error });
 
   if (loading) return <Loader className='mt-6' />;
   const categories = data?.category as ICategory[];

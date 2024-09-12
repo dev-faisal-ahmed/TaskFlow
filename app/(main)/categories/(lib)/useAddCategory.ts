@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@apollo/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { categorySchema, TCategorySchema } from './categorySchema';
-import { GET_CATEGORY_BY_EMAIL, INSERT_CATEGORY } from '@/lib/query';
+import { GET_CATEGORY, INSERT_CATEGORY } from '@/lib/query';
 import { catchAsync } from '@/helpers/catchAsync';
 import { useSession } from 'next-auth/react';
 
@@ -18,7 +18,7 @@ export const useAddCategory = () => {
   });
 
   const [addCategory, { loading }] = useMutation(INSERT_CATEGORY, {
-    refetchQueries: [GET_CATEGORY_BY_EMAIL],
+    refetchQueries: [GET_CATEGORY],
   });
 
   const onAddCategory = form.handleSubmit(async (formData) => {

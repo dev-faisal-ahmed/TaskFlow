@@ -1,6 +1,6 @@
-import { AddTask } from './(ui)/AddTask';
 import { AllTasks } from './(ui)/all-task';
 import { FilterSheet } from './(ui)/filter';
+import { AddTask } from './(ui)/all-task/AddTask';
 import { FilterContextProvider } from '@/context/FilterContext';
 
 export const metadata = {

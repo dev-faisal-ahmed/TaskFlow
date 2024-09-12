@@ -2,10 +2,7 @@
 
 import * as dialog from '@/components/ui/dialog';
 
-import {
-  GET_DELETED_TASK_BY_EMAIL,
-  PERMANENTLY_DELETE_TASK,
-} from '@/lib/query';
+import { GET_DELETED_TASKS, PERMANENTLY_DELETE_TASK } from '@/lib/query';
 
 import { toast } from 'sonner';
 import { useMutation } from '@apollo/client';
@@ -19,7 +16,7 @@ interface IProps {
 
 export const PermanentlyDeleteTask = ({ taskId }: IProps) => {
   const [deleteTask, { loading }] = useMutation(PERMANENTLY_DELETE_TASK, {
-    refetchQueries: [GET_DELETED_TASK_BY_EMAIL],
+    refetchQueries: [GET_DELETED_TASKS],
   });
 
   const onDeleteTask = async () => {

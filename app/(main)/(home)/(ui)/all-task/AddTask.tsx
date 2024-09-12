@@ -4,8 +4,8 @@ import * as dialog from '@/components/ui/dialog';
 import * as customForm from '@/components/ui/form';
 
 import { Button } from '@/components/ui/button';
-import { useAddTask } from '../(lib)/useAddTask';
-import { DescriptionInput } from './shared/DescriptionInput';
+import { useAddTask } from '../../(lib)/useAddTask';
+import { DescriptionInput } from './DescriptionInput';
 import { TextInput } from '@/components/shared/form/TextInput';
 import { SelectCategory } from '@/components/shared/form/SelectCategory';
 

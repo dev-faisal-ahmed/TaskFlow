@@ -8,7 +8,7 @@ import { FiSearch } from 'react-icons/fi';
 import { Input } from '@/components/ui/input';
 import { useFilterContext } from '@/context/useFilterContext';
 import { useQuery } from '@apollo/client';
-import { GET_CATEGORY_BY_EMAIL } from '@/lib/query';
+import { GET_CATEGORY } from '@/lib/query';
 import { useSession } from 'next-auth/react';
 import { Label } from '@/components/ui/label';
 import { ETaskStatus, ICategory } from '@/lib/types';
@@ -19,7 +19,7 @@ import { SelectFilter } from './SelectFilter';
 export const FilterSheet = () => {
   const { data } = useSession();
 
-  const { data: categoryData, loading } = useQuery(GET_CATEGORY_BY_EMAIL, {
+  const { data: categoryData, loading } = useQuery(GET_CATEGORY, {
     variables: { userEmail: data?.user?.email },
   });
 

@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { catchAsync } from '@/helpers/catchAsync';
 import { getAfterTime } from '@/helpers/dateHelper';
 import { scheduleDeleteAction } from '../../(lib)/scheduleDeleteAction';
-import { DELETE_TASK, GET_DELETED_TASK_BY_EMAIL, GET_TASKS } from '@/lib/query';
+import { DELETE_TASK, GET_DELETED_TASKS, GET_TASKS } from '@/lib/query';
 
 interface IProps {
   taskId: string;
@@ -17,7 +17,7 @@ interface IProps {
 
 export const DeleteTask = ({ taskId }: IProps) => {
   const [deleteTask, { loading }] = useMutation(DELETE_TASK, {
-    refetchQueries: [GET_TASKS, GET_DELETED_TASK_BY_EMAIL],
+    refetchQueries: [GET_TASKS, GET_DELETED_TASKS],
   });
 
   const onDeleteTask = async () => {
@@ -29,15 +29,16 @@ export const DeleteTask = ({ taskId }: IProps) => {
       await deleteTask({
         variables: {
           id: taskId,
-          deletedAt: date,
         },
       });
+
       toast.success('Task Deleted', { id });
       // for schedule deletion
       const response = await scheduleDeleteAction(
         taskId,
         getAfterTime(date, 1),
       );
+
       if (response?.success) toast.success(response.success, { id });
       else throw new Error(response?.error);
     }, id);
