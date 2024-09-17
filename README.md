@@ -53,17 +53,16 @@ npm install
 Create a `.env` file in the root directory and add the following environment variables:
 
 ```bash
-NEXT_PUBLIC_HASURA_HTTP_URI="https://task-flow.hasura.app/v1/graphql"
-NEXT_PUBLIC_HASURA_META_DATA_API="https://task-flow.hasura.app/v1/metadata"
-NEXT_PUBLIC_HASURA_WS_LINK="wss://task-flow.hasura.app/v1/graphql"
-NEXT_PUBLIC_HASURA_ADMIN_SECRET="FXbRWm8NZtPUgHcWVlcBYKqrrCoeNnqHMYNaZG6K5cphb2SPbmXW6VXrJNCVmgj6"
-NEXT_PUBLIC_SALT="10"
-NEXTAUTH_SECRET="my#secret#hi"
-NEXTAUTH_URL="http://localhost:3000"
-GMAIL_ID="faisa.lahmed.ost@gmail.com"
-GMAIL_PASS="eqze fdoi jlua fzea"
-API_KEY="AIzaSyCWh60Gs0GlqHN8rQqdKGVq2m-QEw9iJ60"
-
+NEXT_PUBLIC_HASURA_HTTP_URI=""
+NEXT_PUBLIC_HASURA_META_DATA_API=""                    
+NEXT_PUBLIC_HASURA_WS_LINK=""                    
+NEXT_PUBLIC_HASURA_ADMIN_SECRET=""                    
+NEXT_PUBLIC_SALT=""
+NEXTAUTH_SECRET=""                    
+NEXTAUTH_URL=""                    
+GMAIL_ID=""                    
+GMAIL_PASS=""                    
+API_KEY=""                    
 ```
 
 ### 4. Run the Development Server
