@@ -6,7 +6,7 @@ A feature-rich, user-friendly To-Do List application built with **Next.js**, **H
 
 This To-Do List application allows users to manage their daily tasks effectively. Users can create, categorize, and manage tasks while receiving email notifications for completed tasks. Deleted tasks are moved to a trash folder, offering easy restoration.
 
-## Project Overview Video : <a target="_blank" href="https://www.loom.com/share/c09ff03392714a2abe12862282e207d8?sid=1523e4a1-ad8b-4e94-879b-16f3ed2605b0">Click Here</a>
+## Project Overview Video : <a target="_blank" href="https://www.loom.com/share/8b726b23bf9048c79fd8a21af2a52976?sid=9a826d55-3660-412e-8ab5-ba2a115636f0">Click Here</a>
 
 ## Features
 
