@@ -9,7 +9,8 @@ import { TextInput } from '@/components/shared/form/TextInput';
 import { PasswordInput } from '@/components/shared/form/PasswordInput';
 
 export const LoginFrom = () => {
-  const { form, onLogin } = useLogin();
+  const { form, onLogin, handleAddDemoCredentials, isLoading } = useLogin();
+
   return (
     <section className='w-full max-w-[400px] rounded-md border bg-white p-6 shadow'>
       <div className='mb-6 text-center'>
@@ -32,8 +33,8 @@ export const LoginFrom = () => {
             label='Password'
             placeholder='@John Doe'
           />
-          <Button type='submit' className='mt-2 w-full'>
-            Login
+          <Button type='submit' className='mt-2 w-full' disabled={isLoading}>
+            {isLoading ? 'Logging in...' : 'Login'}
           </Button>
           <p className='text-center text-xs'>
             New Here?{' '}
@@ -41,6 +42,19 @@ export const LoginFrom = () => {
               Register
             </Link>
           </p>
+          <div className='flex items-center gap-2'>
+            <div className='h-[2px] w-full bg-border' />
+            <span className='text-xs'> OR</span>
+            <div className='h-[2px] w-full bg-border' />
+          </div>
+          <Button
+            type='button'
+            className='underline'
+            variant='ghost'
+            onClick={handleAddDemoCredentials}
+          >
+            Use Demo credentials
+          </Button>
         </form>
       </customForm.Form>
     </section>

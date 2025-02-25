@@ -15,6 +15,11 @@ export const useLogin = () => {
     defaultValues: { email: '', password: '' },
   });
 
+  const handleAddDemoCredentials = () => {
+    form.setValue('email', 'faisal.ahmed.20.35.197@gmail.com');
+    form.setValue('password', '1234');
+  };
+
   const onLogin = form.handleSubmit(async (formData) => {
     const { email, password } = formData;
     const id = toast.loading('Logging in...🔃');
@@ -38,5 +43,5 @@ export const useLogin = () => {
     }
   });
 
-  return { form, onLogin, isLoading };
+  return { form, onLogin, isLoading, handleAddDemoCredentials };
 };
