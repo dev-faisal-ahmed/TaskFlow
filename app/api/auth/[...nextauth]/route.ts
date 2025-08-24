@@ -39,10 +39,10 @@ const authOption: NextAuthOptions = {
           if (!isPasswordMatch) throw new Error('Wrong password');
 
           return { id: email, email, name };
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-          throw new Error(error.message);
-          return null;
+        } catch (error: unknown) {
+          throw new Error(
+            error instanceof Error ? error.message : 'Something went wrong',
+          );
         }
       },
     }),

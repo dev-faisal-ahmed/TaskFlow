@@ -8,13 +8,13 @@ export const GET_TASKS = gql`
     $offset: Int!
     $limit: Int!
   ) {
-    task_aggregate(where: $whereQuery) {
+    tasks_aggregate(where: $whereQuery) {
       aggregate {
         count
       }
     }
 
-    task(
+    tasks(
       where: $whereQuery
       order_by: { date: $sortOrder }
       offset: $offset
@@ -41,7 +41,7 @@ export const ADD_TASK = gql`
     $categoryId: uuid!
     $userEmail: String!
   ) {
-    insert_task_one(
+    insert_tasks_one(
       object: {
         title: $title
         description: $description
@@ -56,7 +56,7 @@ export const ADD_TASK = gql`
 
 export const UPDATE_TASK = gql`
   mutation UpdateTask($id: uuid!, $title: String, $description: String) {
-    update_task_by_pk(
+    update_tasks_by_pk(
       pk_columns: { id: $id }
       _set: { title: $title, description: $description }
     ) {
@@ -66,8 +66,8 @@ export const UPDATE_TASK = gql`
 `;
 
 export const UPDATE_TASK_STATUS = gql`
-  mutation UpdateTask($id: uuid!, $status: status_enum!) {
-    update_task_by_pk(pk_columns: { id: $id }, _set: { status: $status }) {
+  mutation UpdateTask($id: uuid!, $status: String!) {
+    update_tasks_by_pk(pk_columns: { id: $id }, _set: { status: $status }) {
       id
     }
   }
@@ -76,7 +76,7 @@ export const UPDATE_TASK_STATUS = gql`
 // soft soft deletion
 export const DELETE_TASK = gql`
   mutation SoftDelete($id: uuid!) {
-    update_task_by_pk(pk_columns: { id: $id }, _set: { isDeleted: true }) {
+    update_tasks_by_pk(pk_columns: { id: $id }, _set: { isDeleted: true }) {
       id
     }
   }
@@ -84,7 +84,7 @@ export const DELETE_TASK = gql`
 
 export const RESTORE_TASK = gql`
   mutation RestoreTask($id: uuid!) {
-    update_task_by_pk(pk_columns: { id: $id }, _set: { isDeleted: false }) {
+    update_tasks_by_pk(pk_columns: { id: $id }, _set: { isDeleted: false }) {
       id
     }
   }
@@ -92,7 +92,7 @@ export const RESTORE_TASK = gql`
 
 export const PERMANENTLY_DELETE_TASK = gql`
   mutation PermanentlyDelete($id: uuid!) {
-    delete_task_by_pk(id: $id) {
+    delete_tasks_by_pk(id: $id) {
       id
     }
   }
@@ -101,7 +101,7 @@ export const PERMANENTLY_DELETE_TASK = gql`
 // subscription
 export const GET_DELETED_TASKS = gql`
   subscription GetTaskByEmail($userEmail: String!) {
-    task(where: { userEmail: { _eq: $userEmail }, isDeleted: { _eq: true } }) {
+    tasks(where: { userEmail: { _eq: $userEmail }, isDeleted: { _eq: true } }) {
       id
       title
       description
