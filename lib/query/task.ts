@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 // query
 export const GET_TASKS = gql`
   query GetTasks(
-    $whereQuery: task_bool_exp
+    $whereQuery: tasks_bool_exp
     $sortOrder: order_by!
     $offset: Int!
     $limit: Int!
@@ -35,20 +35,8 @@ export const GET_TASKS = gql`
 
 // mutation
 export const ADD_TASK = gql`
-  mutation AddTask(
-    $title: String!
-    $description: String!
-    $categoryId: uuid!
-    $userEmail: String!
-  ) {
-    insert_tasks_one(
-      object: {
-        title: $title
-        description: $description
-        categoryId: $categoryId
-        userEmail: $userEmail
-      }
-    ) {
+  mutation AddTask($object: tasks_insert_input!) {
+    insert_tasks_one(object: $object) {
       id
     }
   }

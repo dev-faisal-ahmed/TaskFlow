@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 // query
-export const GET_CATEGORY = gql`
-  query GetCategory($userEmail: String!) {
+export const GET_CATEGORIES = gql`
+  query GetCategories($userEmail: String!) {
     categories(
       where: { userEmail: { _eq: $userEmail } }
       order_by: { createdAt: desc }

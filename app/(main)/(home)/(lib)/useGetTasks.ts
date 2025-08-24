@@ -35,5 +35,7 @@ export const useGetTasks = () => {
     setPage(pageNumber);
   };
 
-  return { tasks: data?.task as ITask[], loading, jumpPage, totalPages, page };
+  console.log(data);
+
+  return { tasks: data?.tasks as ITask[], loading, jumpPage, totalPages, page };
 };

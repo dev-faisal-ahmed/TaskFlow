@@ -18,7 +18,7 @@ export const AllTrash = () => {
   });
 
   if (loading) return <Loader className='mt-8' />;
-  const tasks = data?.task as ITask[];
+  const tasks = data?.tasks as ITask[];
 
   if (!tasks || !tasks.length)
     return <p className='mt-8 text-center font-semibold'>No Task Found!</p>;

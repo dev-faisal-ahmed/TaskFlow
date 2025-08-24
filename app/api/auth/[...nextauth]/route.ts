@@ -30,7 +30,7 @@ const authOption: NextAuthOptions = {
             variables: { email },
           });
 
-          const [user] = data.user;
+          const [user] = data.users;
           if (!user) throw new Error('User not found');
 
           const { name } = user;

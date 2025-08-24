@@ -7,6 +7,7 @@ import { ADD_TASK, GET_TASKS } from '@/lib/query';
 import { catchAsync } from '@/helpers/catchAsync';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addTaskSchema, TAddTaskSchema } from './taskSchema';
+import { ETaskStatus } from '@/lib/types';
 
 export const useAddTask = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,15 +27,19 @@ export const useAddTask = () => {
 
     const id = toast.loading('Adding Category...🔃');
 
-    await catchAsync(async () => {
+    catchAsync(async () => {
       await addTask({
         variables: {
-          title,
-          description,
-          categoryId,
-          userEmail: data?.user?.email as string,
+          object: {
+            title,
+            description,
+            categoryId,
+            userEmail: data?.user?.email,
+            status: ETaskStatus.PENDING,
+          },
         },
       });
+
       toast.success('Task Added', { id });
       form.reset();
       setIsOpen(false);

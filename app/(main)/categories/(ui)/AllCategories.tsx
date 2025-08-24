@@ -5,18 +5,16 @@ import { useQuery } from '@apollo/client';
 import { useSession } from 'next-auth/react';
 import { UpdateCategory } from './UpdateCategory';
 import { Loader } from '@/components/shared/Loader';
-import { GET_CATEGORY } from '@/lib/query';
+import { GET_CATEGORIES } from '@/lib/query';
 
 export const AllCategories = () => {
   const { data: userInfo } = useSession();
-  const { data, loading, error } = useQuery(GET_CATEGORY, {
+  const { data, loading } = useQuery(GET_CATEGORIES, {
     variables: { userEmail: userInfo?.user?.email },
   });
 
-  console.log({ error });
-
   if (loading) return <Loader className='mt-6' />;
-  const categories = data?.category as ICategory[];
+  const categories = data?.categories as ICategory[];
 
   if (!categories || !categories.length)
     return <p className='mt-8 text-center font-semibold'>No Category Found!</p>;
@@ -29,7 +27,8 @@ export const AllCategories = () => {
           className='flex items-center justify-between rounded-md bg-white p-3'
         >
           <h4 className='font-semibold'>{name}</h4>
-          <UpdateCategory id={id} categoryName={name} />
+          {/* when name updated, the UpdateCategory component will re-render */}
+          <UpdateCategory key={name} id={id} categoryName={name} />
         </div>
       ))}
     </div>
